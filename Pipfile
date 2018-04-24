@@ -6,11 +6,13 @@ name = "pypi"
 [packages]
 django = "==2.0.4"
 social-auth-app-django = "*"
+django-environ = "*"
 
 [dev-packages]
 yapf = "*"
 pytest = "*"
 pytest-django = "*"
+isort = "*"
 
 [requires]
 python_version = "3.6"
