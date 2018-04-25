@@ -5,14 +5,15 @@ name = "pypi"
 
 [packages]
 django = "==2.0.4"
-social-auth-app-django = "*"
 django-environ = "*"
+psycopg2-binary = "*"
+social-auth-app-django = "*"
 
 [dev-packages]
-yapf = "*"
+isort = "*"
 pytest = "*"
 pytest-django = "*"
-isort = "*"
+yapf = "*"
 
 [requires]
 python_version = "3.6"
