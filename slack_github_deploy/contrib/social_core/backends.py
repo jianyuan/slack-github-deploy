@@ -15,6 +15,7 @@ class SlackAppOAuth2(SlackOAuth2):
             'username': username,
             'team_id': response['team_id'],
             'team_name': response['team_name'],
+            'team_url': response['url'],
             'bot': response['bot'],
         }
 
