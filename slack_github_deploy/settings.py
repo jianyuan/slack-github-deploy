@@ -38,9 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # 3rd party apps
     'django_extensions',
     'rest_framework',
     'social_django',
+    'webpack_loader',
+
+    # local apps
     'slack_github_deploy',
 ]
 
@@ -144,6 +149,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    root('slack_github_deploy', 'assets'),
+]
+
+# Django Webpack Loader
+# https://github.com/owais/django-webpack-loader
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'bundles/',
+        'STATS_FILE': root('webpack-stats.json'),
+    }
+}
 
 # Django Debug Toolbar
 # https://django-debug-toolbar.readthedocs.io/en/stable/configuration.html

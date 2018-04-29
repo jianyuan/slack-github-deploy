@@ -1,29 +1,13 @@
+{% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+  <head>
     <meta charset="UTF-8">
-    <title>Slack GitHub Deploy</title>
-</head>
-<body>
-    {% if user.is_authenticated %}
-        <h1>Welcome, {{ user.username }}</h1>
-        <p>
-            <a href="{% url 'logout' %}">Log out</a>
-        </p>
-        <ul>
-            {% for social_auth in user.social_auth.all %}
-                <li>
-                    {{ social_auth.provider }}: {{ social_auth.uid }} | {{ social_auth.extra_data }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <h1>Welcome</h1>
-    {% endif %}
-    <p>
-        <a href="{% url 'social:begin' backend='slack' %}">Sign in with Slack</a>
-        <a href="{% url 'social:begin' backend='github' %}">Sign in with GitHub</a>
-        <a href="{% url 'integrations_slack_install' %}">Install Slack integration</a>
-    </p>
-</body>
+    <title>Example</title>
+  </head>
+
+  <body>
+    <div id="react-app"></div>
+    {% render_bundle 'main' %}
+  </body>
 </html>

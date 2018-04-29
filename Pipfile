@@ -10,6 +10,7 @@ psycopg2-binary = "*"
 social-auth-app-django = "*"
 djangorestframework = "*"
 django-extensions = "*"
+django-webpack-loader = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
