@@ -12,6 +12,7 @@ djangorestframework = "*"
 django-extensions = "*"
 
 [dev-packages]
+honcho = "*"
 ipython = "*"
 isort = "*"
 pytest = "*"
