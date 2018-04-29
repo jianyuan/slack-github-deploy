@@ -145,6 +145,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# Celery
+# http://docs.celeryproject.org/en/latest/userguide/configuration.html
+
+CELERY_BROKER_URL = env('CELERY_BROKER_URL')
+
 # Django Debug Toolbar
 # https://django-debug-toolbar.readthedocs.io/en/stable/configuration.html
 DEBUG_TOOLBAR_CONFIG = {

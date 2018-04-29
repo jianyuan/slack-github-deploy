@@ -4,12 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+celery = {extras = ["redis"]}
 django = "==2.0.4"
 django-environ = "*"
+django-extensions = "*"
+djangorestframework = "*"
 psycopg2-binary = "*"
 social-auth-app-django = "*"
-djangorestframework = "*"
-django-extensions = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
