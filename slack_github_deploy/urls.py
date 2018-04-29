@@ -13,13 +13,24 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from django.urls import include, path
 
 from slack_github_deploy import views
 
 urlpatterns = [
+    path('', views.temp_root, name='root'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('', include('social_django.urls', namespace='social')),
-    path('integrations/slack/install/', views.install_slack),
+    path('integrations/slack/install/', views.install_slack, name='integrations_slack_install'),
     path('admin/', admin.site.urls),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
