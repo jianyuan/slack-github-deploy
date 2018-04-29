@@ -2,6 +2,7 @@ const path = require('path');
 const BundleTracker = require('webpack-bundle-tracker');
 
 module.exports = {
+    mode: 'development',
     context: __dirname,
     entry: './slack_github_deploy/assets/js/index',
     output: {
