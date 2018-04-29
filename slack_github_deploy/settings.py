@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'slack_github_deploy',
 ]
 
+if DEBUG:
+    INSTALLED_APPS += ['debug_toolbar']
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -53,6 +56,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if DEBUG:
+    MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware'] + MIDDLEWARE
 
 ROOT_URLCONF = 'slack_github_deploy.urls'
 
@@ -88,6 +94,7 @@ DATABASES = {
 
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.github.GithubOAuth2',
+    'slack_github_deploy.contrib.social_core.backends.SlackOAuth2',
     'slack_github_deploy.contrib.social_core.backends.SlackAppOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 ]
@@ -95,6 +102,8 @@ AUTHENTICATION_BACKENDS = [
 LOGIN_URL = '/'
 
 LOGIN_REDIRECT_URL = '/'
+
+LOGOUT_REDIRECT_URL = '/'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -135,6 +144,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Django Debug Toolbar
+# https://django-debug-toolbar.readthedocs.io/en/stable/configuration.html
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': lambda request: True,
+}
 
 # Social auth
 # http://python-social-auth.readthedocs.io/en/latest/configuration/django.html
