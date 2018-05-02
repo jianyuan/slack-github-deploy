@@ -1,9 +1,8 @@
 from slack_github_deploy import models
-from slack_github_deploy.contrib.social_core import backends
 
 
 def create_slack_entities(backend, details, social, *args, **kwargs):
-    if not isinstance(backend, backends.SlackAppOAuth2):
+    if backend.name != 'slack':
         return
 
     slack_team, __ = models.SlackTeam.objects.update_or_create(

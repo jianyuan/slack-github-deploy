@@ -1,8 +1,7 @@
-from social_core.backends.slack import SlackOAuth2
+from social_core.backends.slack import SlackOAuth2 as BaseSlackOAuth2
 
 
-class SlackAppOAuth2(SlackOAuth2):
-    name = 'slack-app'
+class SlackOAuth2(BaseSlackOAuth2):
     DEFAULT_SCOPE = ['commands', 'bot']
     EXTRA_DATA = [
         ('id', 'id'),

@@ -6,4 +6,4 @@ def temp_root(request):
 
 
 def install_slack(request):
-    return redirect('social:begin', backend='slack-app')
+    return redirect('social:begin', backend='slack')
