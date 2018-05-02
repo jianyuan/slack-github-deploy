@@ -95,9 +95,10 @@ DATABASES = {
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.github.GithubOAuth2',
     'slack_github_deploy.contrib.social_core.backends.SlackOAuth2',
-    'slack_github_deploy.contrib.social_core.backends.SlackAppOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+AUTH_USER_MODEL = 'slack_github_deploy.User'
 
 LOGIN_URL = '/'
 
@@ -232,9 +233,6 @@ SOCIAL_AUTH_GITHUB_SECRET = env('GITHUB_CLIENT_SECRET')
 
 SOCIAL_AUTH_SLACK_KEY = env('SLACK_CLIENT_ID')
 SOCIAL_AUTH_SLACK_SECRET = env('SLACK_CLIENT_SECRET')
-
-SOCIAL_AUTH_SLACK_APP_KEY = SOCIAL_AUTH_SLACK_KEY
-SOCIAL_AUTH_SLACK_APP_SECRET = SOCIAL_AUTH_SLACK_SECRET
 
 SLACK_VERIFICATION_TOKEN = env('SLACK_VERIFICATION_TOKEN')
 

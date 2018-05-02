@@ -1,5 +1,10 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from social_django.models import UserSocialAuth
+
+
+class User(AbstractUser):
+    pass
 
 
 class SlackTeam(models.Model):
