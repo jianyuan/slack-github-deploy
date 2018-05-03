@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 
 import environ
+import structlog
 
 root = environ.Path(__file__) - 2
 env = environ.Env()
@@ -58,7 +59,9 @@ MIDDLEWARE = [
 ]
 
 if DEBUG:
-    MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware'] + MIDDLEWARE
+    MIDDLEWARE = [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    ] + MIDDLEWARE
 
 ROOT_URLCONF = 'slack_github_deploy.urls'
 
@@ -146,6 +149,30 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# Logging
+# https://docs.djangoproject.com/en/2.0/topics/logging/
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'level': env('DJANGO_LOG_LEVEL', default='INFO'),
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+        },
+        'slack_github_deploy': {
+            'handlers': ['console'],
+        },
+    },
+}
+
 # Celery
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html
 
@@ -197,7 +224,6 @@ SOCIAL_AUTH_PIPELINE = [
 
     # Create the record that associated the social account with this user.
     'social_core.pipeline.social_auth.associate_user',
-
     'slack_github_deploy.contrib.social_core.pipeline.create_slack_entities',
 
     # Populate the extra_data field in the social record with the values
@@ -236,4 +262,28 @@ SOCIAL_AUTH_SLACK_SECRET = env('SLACK_CLIENT_SECRET')
 
 SLACK_VERIFICATION_TOKEN = env('SLACK_VERIFICATION_TOKEN')
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # TODO: Remove me
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO',
+                           'https')  # TODO: Remove me
+
+# Structlog
+
+if DEBUG:
+    renderer = structlog.dev.ConsoleRenderer()
+else:
+    renderer = structlog.processors.JSONRenderer(sort_keys=True)
+
+structlog.configure(
+    processors=[
+        structlog.stdlib.add_logger_name,
+        structlog.stdlib.add_log_level,
+        structlog.stdlib.PositionalArgumentsFormatter(),
+        structlog.processors.TimeStamper(fmt="%Y-%m-%d %H:%M.%S"),
+        structlog.processors.StackInfoRenderer(),
+        structlog.processors.format_exc_info,
+        renderer,
+    ],
+    context_class=dict,
+    logger_factory=structlog.stdlib.LoggerFactory(),
+    wrapper_class=structlog.stdlib.BoundLogger,
+    cache_logger_on_first_use=True,
+)

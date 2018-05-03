@@ -5,12 +5,15 @@ name = "pypi"
 
 [packages]
 celery = {extras = ["redis"]}
+colorama = "*"
 django = "==2.0.4"
 django-environ = "*"
 django-extensions = "*"
 djangorestframework = "*"
 psycopg2-binary = "*"
+slackclient = "*"
 social-auth-app-django = "*"
+structlog = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
