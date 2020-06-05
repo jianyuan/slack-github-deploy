@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 celery = {extras = ["redis"]}
 colorama = "*"
-django = "==2.0.4"
+django = "==2.2.13"
 django-environ = "*"
 django-extensions = "*"
 djangorestframework = "*"
